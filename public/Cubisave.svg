@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 758.33 1045.42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <polyline class="cls-1"
+    points="11.68 522.58 11.68 150.05 273.18 150.05 273.18 11.03 380.02 10.65 495.18 11.03 495.18 150.03 748.32 150.05 748.32 522.58 748.46 522.6 748.18 962.03 528.18 962.03 528.18 1035.03 420.18 1034.67" />
+  <polyline class="cls-1" points="11.82 522.6 11.82 895.13 11.18 1035.03 273.18 1035.03 350.18 1034.67" />
+  <path class="cls-1"
+    d="M497.18,308.11v490.91c-15.86-13.8-53.57-32.16-105-34.44-59.31-2.63-101.43,20.93-117,34.44V308.14c6.25-.62,22.86-3.19,38-17.18,19.57-18.09,22.65-42.3,23.22-48.44h100.03c.58,6.1,3.64,30.35,23.22,48.45,14.78,13.67,30.95,16.44,37.53,17.14Z" />
+  <rect class="cls-1" x="548.1" y="150.03" width="200" height="186" /> <!-- 1 -->
+  <rect class="cls-1" x="573.18" y="335.63" width="175" height="111.8" /> <!-- 2 -->
+  <rect class="cls-1" x="572.94" y="446.94" width="175" height="111.8" /> <!-- 3 -->
+  <rect class="cls-1" x="572.94" y="558.94" width="175" height="111.8" /> <!-- 4 -->
+  <rect class="cls-1" x="572.94" y="669.94" width="175" height="111.8" /> <!-- 5 -->
+  <rect class="cls-1" x="572.94" y="781.94" width="175" height="113.09" /> <!-- 6 -->
+  <rect class="cls-1" x="11.58" y="336.33" width="175" height="111.8" /> <!-- 7 -->
+  <rect class="cls-1" x="11.34" y="447.64" width="175" height="111.8" /> <!-- 8 -->
+  <rect class="cls-1" x="11.34" y="559.64" width="175" height="111.8" /> <!-- 9 -->
+  <rect class="cls-1" x="11.34" y="670.64" width="175" height="111.8" /> <!-- 10 -->
+  <rect class="cls-1" x="11.34" y="782.64" width="175" height="111.8" /> <!-- 11 -->
+  <rect class="cls-1" x="12.18" y="150.03" width="200" height="186" /> <!-- 12 -->
+  <rect class="cls-1" x="12.18" y="895.03" width="261" height="11" />
+  <rect class="cls-1" x="315.68" y="851.53" width="139" height="114" transform="translate(1293.7 523.35) rotate(90)" />
+  <rect class="cls-1" x="338.18" y="849.03" width="94" height="119" />
+  <rect class="cls-1" x="31.18" y="984.03" width="111" height="36" />
+  <rect class="cls-1" x="350.18" y="1030.03" width="70" height="9" />
+  <rect class="cls-1" x="488.68" y="988.53" width="48" height="19" transform="translate(-485.35 1510.7) rotate(-90)" />
+  <rect class="cls-1" x="528.18" y="962.03" width="89" height="73" />
+  <g>
+    <rect class="cls-1" x="528.18" y="962.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="968.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="974.03" width="89" height="6" />
+  </g>
+  <g>
+    <rect class="cls-1" x="528.18" y="980.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="986.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="992.03" width="89" height="6" />
+  </g>
+  <g>
+    <rect class="cls-1" x="528.18" y="998.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="1004.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="1010.03" width="89" height="6" />
+  </g>
+  <g>
+    <rect class="cls-1" x="528.18" y="1016.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="1022.03" width="89" height="6" />
+    <rect class="cls-1" x="528.18" y="1028.03" width="89" height="6" />
+  </g>
+  <rect class="cls-1" x="31.18" y="952.03" width="48" height="19" transform="translate(110.35 1923.05) rotate(180)" />
+  <polyline class="cls-1"
+    points="1.19 522.45 1.19 894.94 .5 1044.88 272.59 1044.88 379.58 1044.38 537.55 1044.92 537.55 1035.03" />
+  <polyline class="cls-1"
+    points="1.05 522.43 1.05 139.9 262.55 139.9 262.55 .92 379.82 .5 379.82 .5 504.55 .92 504.55 139.88 757.69 139.9 757.69 513.94 757.83 513.96 757.54 971.88 617.18 971.88 617.18 1034.03" />
+  <polygon class="cls-1"
+    points="495.18 139.03 495.18 150.03 419.18 150.03 419.18 146.03 349.18 146.03 349.18 150.03 273.18 150.03 273.18 139.03 495.18 139.03" />
+  <circle class="cls-1" cx="253.18" cy="189.03" r="29" />
+  <circle class="cls-1" cx="507.18" cy="189.03" r="29" />
+  <rect class="cls-1" x="567.18" y="895.03" width="180" height="11" />
+  <path class="cls-1" d="M336.43,281.74c-.01,.09-.02,.19-.03,.29" />
+  <path class="cls-1" d="M436.43,282.03c-.01-.1-.02-.19-.03-.28" />
+  <path class="cls-1" d="M497.65,343.01c-.15-.01-.31-.03-.47-.05" />
+  <rect class="cls-1" x="349.18" y="145.03" width="70" height="9" />
+</svg>
