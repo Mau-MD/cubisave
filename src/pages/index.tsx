@@ -15,6 +15,8 @@ import { getRelativeDimensions } from "~/components/highlightCoordinates";
 import { roomRouter } from "~/server/api/routers/room";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Google from "next-auth/providers/google";
+import { Flex } from "@chakra-ui/react";
+import Link from "next/link";
 
 const scale = 1.2;
 const Home: NextPage = () => {
@@ -48,7 +50,15 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="fixed z-10 m-10 ">
-        <h1 className="text-4xl font-bold">Cubisave</h1>
+        <Flex gap={5} alignItems={"center"}>
+          <h1 className="text-4xl font-bold">Cubisave</h1>
+          <Link
+            href="/reservas"
+            className="rounded bg-gray-100 px-4 py-2 shadow-md"
+          >
+            Mis Reservas
+          </Link>
+        </Flex>
         <h2>Biblioteca CETYS</h2>
       </div>
       <div

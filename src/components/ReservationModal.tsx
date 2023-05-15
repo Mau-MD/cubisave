@@ -15,12 +15,12 @@ import {
   Flex,
   useToast,
 } from "@chakra-ui/react";
-import { addMinutes, getTime } from "date-fns";
+import { addMinutes, differenceInMinutes, getTime } from "date-fns";
 import format from "date-fns/format";
 import { useAtom } from "jotai";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Stack } from "react-daisyui";
 import { selectedRoomAtom } from "~/atoms";
 import { Availability, RoomWithAvailability } from "~/server/api/routers/room";
@@ -30,34 +30,65 @@ interface Props {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
-  availability: Availability[];
   roomId: string;
+  startDateTime?: Date;
+  endDateTime?: Date;
+  reservationId?: string;
 }
 const ReservationModal = ({
   isOpen,
   onOpen,
   onClose,
-  availability,
   roomId,
+  reservationId,
+  startDateTime,
+  endDateTime,
 }: Props) => {
-  const [range, setRange] = useState<[number, number]>([0, 2]);
+  function round(date: Date) {
+    if (date.getMinutes() === 0) return date;
+    if (date.getMinutes() <= 30) {
+      date.setMinutes(30);
+    } else {
+      date.setHours(date.getHours() + 1);
+      date.setMinutes(0);
+    }
+    return date;
+  }
+  const [range, setRange] = useState<[number, number]>(getInitialState());
   const timeList = useRef<Date[]>([]);
 
+  function getInitialState(): [number, number] {
+    if (!startDateTime || !endDateTime) return [0, 2];
+
+    let range: [number, number] = [0, 0];
+    if (startDateTime < new Date()) range[0] = 0;
+    else
+      range[0] =
+        Math.floor(differenceInMinutes(startDateTime, new Date()) / 15) - 1;
+
+    const roundedEndDate = round(endDateTime);
+    const roundedCurrentDate = round(new Date());
+
+    console.log(
+      format(roundedEndDate, "hh:mm"),
+      format(roundedCurrentDate, "hh:mm")
+    );
+    const diff = differenceInMinutes(roundedEndDate, roundedCurrentDate);
+    console.log(diff);
+    const interval = Math.ceil(diff / 15);
+    range[1] = interval;
+    return range;
+  }
   const getTimeList = useCallback(() => {
     // new dat
     const currTimeList: Date[] = [];
-    const currentDate = new Date();
+    const currentDate = round(new Date());
 
-    if (currentDate.getMinutes() < 30) {
-      currTimeList.push(new Date(currentDate.setMinutes(30)));
-    } else {
-      currentDate.setHours(currentDate.getHours() + 1);
-      currentDate.setMinutes(0);
-      currTimeList.push(new Date(currentDate));
-    }
-    for (let i = 0; i < 12; i++) {
+    currTimeList.push(currentDate);
+
+    for (let i = 0; i < 24; i++) {
       currTimeList.push(
-        addMinutes(currTimeList[currTimeList.length - 1] as Date, 30)
+        addMinutes(currTimeList[currTimeList.length - 1] as Date, 15)
       );
     }
     console.log(currTimeList);
@@ -65,7 +96,8 @@ const ReservationModal = ({
     timeList.current = currTimeList;
     let obj: Record<number, string> = {};
     for (const [idx, t] of currTimeList.entries()) {
-      obj[idx * 2] = format(t, "hh:mm");
+      if (idx % 2 == 1) continue;
+      obj[idx] = format(t, "hh:mm");
     }
     return obj;
   }, []);
@@ -93,6 +125,28 @@ const ReservationModal = ({
     },
   });
 
+  const { mutate: mutateUpdate, isLoading: isLoadingUpdate } =
+    api.room.updateReservation.useMutation({
+      onSuccess: () => {
+        onClose();
+        room.getRooms.invalidate();
+        room.getReservation.invalidate();
+        setSelectedRoom("");
+        toast({
+          status: "success",
+          title: "Reserva actualizada",
+          description: "Reserva actualizada con éxito",
+        });
+      },
+      onError: (err) => {
+        toast({
+          status: "error",
+          title: "Error al actualizar reserva",
+          description: err.message,
+        });
+      },
+    });
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size={"3xl"}>
       <ModalOverlay />
@@ -113,7 +167,7 @@ const ReservationModal = ({
                 min={0}
                 max={12 * 2}
                 marks={getTimeList()}
-                defaultValue={[0, 2]}
+                defaultValue={range}
                 onChange={(r) => setRange(r as [number, number])}
               />
             </FormControl>
@@ -121,17 +175,26 @@ const ReservationModal = ({
         </ModalBody>
 
         <ModalFooter gap={2}>
-          <Button variant="ghost">Cancelar</Button>
+          <Button variant="ghost" onClick={onClose}>
+            Cancelar
+          </Button>
           <Button
             colorScheme="green"
             mr={3}
-            isLoading={isLoading}
+            isLoading={isLoading || isLoadingUpdate}
             onClick={() =>
-              mutate({
-                roomId: roomId,
-                startDateTime: timeList.current[range[0]] as Date,
-                endDateTime: timeList.current[range[1]] as Date,
-              })
+              endDateTime && startDateTime
+                ? mutateUpdate({
+                    endDateTime: timeList.current[range[1]] as Date,
+                    startDateTime: timeList.current[range[0]] as Date,
+                    reservationId: reservationId ?? "",
+                    roomId: roomId,
+                  })
+                : mutate({
+                    roomId: roomId,
+                    startDateTime: timeList.current[range[0]] as Date,
+                    endDateTime: timeList.current[range[1]] as Date,
+                  })
             }
           >
             Programar Reserva

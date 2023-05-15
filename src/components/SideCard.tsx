@@ -172,7 +172,6 @@ const SideCard = ({ position = "right", rooms }: PropTypes) => {
         onClose={onClose}
         onOpen={onOpen}
         isOpen={isOpen}
-        availability={selectedRoom?.availability ?? []}
         roomId={selectedRoom?.id ?? ""}
       />
     </>
