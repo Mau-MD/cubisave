@@ -95,7 +95,12 @@ const Home: NextPage = () => {
                     key={highlightCoordinates.id}
                     id={String(highlightCoordinates.id)}
                     name={highlightCoordinates.name}
-                    available={true}
+                    available={highlightCoordinates.availability.some(
+                      (av) =>
+                        av.available &&
+                        av.startDateTime <= new Date() &&
+                        av.endDateTime >= new Date()
+                    )}
                     height={highlightCoordinates.height}
                     width={highlightCoordinates.width}
                     x={highlightCoordinates.x}

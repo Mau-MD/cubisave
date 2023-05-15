@@ -6,6 +6,7 @@ import { Provider } from "jotai";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -13,9 +14,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Provider>
-        <Component {...pageProps} />
-      </Provider>
+      <ChakraProvider>
+        <Provider>
+          <Component {...pageProps} />
+        </Provider>
+      </ChakraProvider>
     </SessionProvider>
   );
 };
