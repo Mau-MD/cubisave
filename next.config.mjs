@@ -7,7 +7,7 @@ await import("./src/env.mjs");
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    domains: ["www.cetys.mx"]
+    domains: ["www.cetys.mx", "i.imgur.com"]
   },
   reactStrictMode: true,
     i18n: {

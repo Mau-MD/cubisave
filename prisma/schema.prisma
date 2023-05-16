@@ -79,5 +79,6 @@ model Room {
     y           Int
     width       Int
     height      Int
+    image       String        @default("")
     Reservation Reservation[]
 }

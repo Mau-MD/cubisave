@@ -45,14 +45,15 @@ const ReservationModal = ({
   endDateTime,
 }: Props) => {
   function round(date: Date) {
-    if (date.getMinutes() === 0) return date;
-    if (date.getMinutes() <= 30) {
-      date.setMinutes(30);
+    const dateCopy = new Date(date);
+    if (dateCopy.getMinutes() === 0) return dateCopy;
+    if (dateCopy.getMinutes() <= 30) {
+      dateCopy.setMinutes(30);
     } else {
-      date.setHours(date.getHours() + 1);
-      date.setMinutes(0);
+      dateCopy.setHours(dateCopy.getHours() + 1);
+      dateCopy.setMinutes(0);
     }
-    return date;
+    return dateCopy;
   }
   const [range, setRange] = useState<[number, number]>(getInitialState());
   const timeList = useRef<Date[]>([]);

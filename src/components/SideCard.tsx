@@ -80,7 +80,7 @@ const SideCard = ({ position = "right", rooms }: PropTypes) => {
        top-0 z-30 m-10 flex w-[350px] flex-col rounded-md bg-white p-8 shadow-md`}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Cubículo {selectedRoom?.name}</h2>
+          <h2 className="text-2xl font-bold">{selectedRoom?.name}</h2>
           <motion.div animate={{ rotate: position === "right" ? 180 : 0 }}>
             <ArrowBigLeft
               className="cursor-pointer"
@@ -101,7 +101,10 @@ const SideCard = ({ position = "right", rooms }: PropTypes) => {
         <div className="mt-4 flex h-full flex-col overflow-hidden">
           <div className="relative h-[200px] w-full rounded-md">
             <Image
-              src={"https://www.cetys.mx/biblioteca/images/ensenada04.jpg"}
+              src={
+                selectedRoom?.image ??
+                "https://www.cetys.mx/biblioteca/images/ensenada04.jpg"
+              }
               className="h-full w-full rounded-md object-cover"
               fill
               alt="image"
