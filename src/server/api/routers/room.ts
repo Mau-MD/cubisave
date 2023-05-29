@@ -55,6 +55,15 @@ export const roomRouter = createTRPCRouter({
         },
       });
 
+      /*
+      SELECT *
+      FROM room 
+      LEFT JOIN reservation ON room.id = reservation.roomId
+      WHERE reservation.endDateTime >= CURRENT_TIMESTAMP
+      AND reservation.startDateTime <= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 12 HOUR)
+      ORDER BY reservation.endDateTime ASC;
+      */
+
       const roomWithAvailability = roomWithData.map((room) => {
         const availability: Array<Availability> = [];
 
@@ -140,6 +149,15 @@ export const roomRouter = createTRPCRouter({
           startDateTime: { lte: addHours(new Date(), 12) },
         },
       });
+
+      /*
+      SELECT *
+      FROM reservation 
+      WHERE roomId = 'input.roomId'
+      AND endDateTime >= CURRENT_TIMESTAMP
+      AND startDateTime <= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 12 HOUR);
+      */
+
       console.log("RESERVATIONS", reservations);
       if (!checkIfValid(input.startDateTime, input.endDateTime, reservations))
         throw new Error("La reservación se empalma con otra reservación");
@@ -152,6 +170,10 @@ export const roomRouter = createTRPCRouter({
           endDateTime: input.endDateTime,
         },
       });
+      /*
+      INSERT INTO reservation (userId, roomId, startDateTime, endDateTime)
+      VALUES ('ctx.session.user.id', 'input.roomId', 'input.startDateTime', 'input.endDateTime');
+      */
     }),
   getReservation: protectedProcedure.query(async ({ ctx }) => {
     const rooms = await prisma.room.findMany({
@@ -172,6 +194,15 @@ export const roomRouter = createTRPCRouter({
         },
       },
     });
+    /*
+    SELECT *
+    FROM room 
+    LEFT JOIN reservation ON room.id = reservation.roomId
+    WHERE reservation.userId = 'ctx.session.user.id'
+    AND reservation.endDateTime >= CURRENT_TIMESTAMP
+    AND reservation.startDateTime <= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 12 HOUR)
+    ORDER BY reservation.endDateTime ASC;
+    */
     return rooms
       .filter((room) => room.Reservation.length > 0)
       .map((room) => ({
@@ -189,6 +220,10 @@ export const roomRouter = createTRPCRouter({
         },
       });
     }),
+  /*
+  DELETE FROM reservation
+  WHERE id = 'input';
+  */
   updateReservation: protectedProcedure
     .input(
       z.object({
@@ -218,6 +253,11 @@ export const roomRouter = createTRPCRouter({
           endDateTime: input.endDateTime,
         },
       });
+      /*
+      UPDATE reservation
+      SET startDateTime = 'input_startDateTime', endDateTime = 'input_endDateTime'
+      WHERE id = 'input_reservationId';
+      */
     }),
 });
 
